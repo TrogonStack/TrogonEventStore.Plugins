@@ -4,7 +4,7 @@ namespace EventStore.Plugins.Authorization;
 
 public abstract class AuthorizationProviderBase(PluginOptions options) : Plugin(options), IAuthorizationProvider {
 	protected AuthorizationProviderBase(
-		string? name = null, 
+		string? name = null,
 		string? version = null,
 		string? licensePublicKey = null,
 		string? diagnosticsName = null,
@@ -16,6 +16,6 @@ public abstract class AuthorizationProviderBase(PluginOptions options) : Plugin(
 		DiagnosticsName = diagnosticsName,
 		DiagnosticsTags = diagnosticsTags
 	}) { }
-	
+
 	public abstract ValueTask<bool> CheckAccessAsync(ClaimsPrincipal principal, Operation operation, CancellationToken cancellationToken);
 }

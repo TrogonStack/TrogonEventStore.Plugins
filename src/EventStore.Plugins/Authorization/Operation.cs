@@ -1,4 +1,4 @@
-﻿using System.Text;
+using System.Text;
 
 namespace EventStore.Plugins.Authorization;
 
@@ -17,7 +17,8 @@ public readonly struct Operation {
 
 	public Operation WithParameters(ReadOnlyMemory<Parameter> parameters) {
 		var memory = new Memory<Parameter>(new Parameter[Parameters.Length + parameters.Length]);
-		if (!Parameters.IsEmpty) Parameters.CopyTo(memory);
+		if (!Parameters.IsEmpty)
+			Parameters.CopyTo(memory);
 		parameters.CopyTo(memory.Slice(Parameters.Length));
 		return new(Resource, Action, memory);
 	}

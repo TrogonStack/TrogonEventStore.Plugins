@@ -22,7 +22,7 @@ public interface IPlugableComponent {
 	///     The tags used for diagnostics.
 	/// </summary>
 	KeyValuePair<string, object?>[] DiagnosticsTags { get; }
-	
+
 	/// <summary>
 	///     The version of the component.
 	/// </summary>
@@ -37,7 +37,7 @@ public interface IPlugableComponent {
 	///		The public key used for licensing.
 	/// </summary>
 	string? LicensePublicKey { get; }
-	
+
 	/// <summary>
 	///     Configures the services using the provided IServiceCollection and IConfiguration.
 	/// </summary>

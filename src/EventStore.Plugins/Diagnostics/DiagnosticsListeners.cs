@@ -113,7 +113,7 @@ class GenericDiagnosticsListener : IDisposable {
 
 		Source = source;
 		Capacity = capacity;
-		Queue  = new(capacity);
+		Queue = new(capacity);
 
 		var observer = new GenericObserver<KeyValuePair<string, object?>>(data => {
 			if (capacity > 0)
@@ -121,8 +121,7 @@ class GenericDiagnosticsListener : IDisposable {
 
 			try {
 				onEvent?.Invoke(data);
-			}
-			catch {
+			} catch {
 				// stay on target
 			}
 		});
@@ -133,7 +132,8 @@ class GenericDiagnosticsListener : IDisposable {
 		return;
 
 		void OnNewListener(DiagnosticListener listener) {
-			if (listener.Name != source) return;
+			if (listener.Name != source)
+				return;
 
 			lock (Locker) {
 				NetworkSubscription?.Dispose();
@@ -168,8 +168,8 @@ class GenericDiagnosticsListener : IDisposable {
 
 		public void OnError(Exception error) { }
 
-		readonly Action<T> _onNext      = onNext      ?? (_ => { });
-		readonly Action    _onCompleted = onCompleted ?? (() => { });
+		readonly Action<T> _onNext = onNext ?? (_ => { });
+		readonly Action _onCompleted = onCompleted ?? (() => { });
 	}
 
 	class FixedSizedConcurrentQueue<T>(int maxSize) : ConcurrentQueue<T> {
