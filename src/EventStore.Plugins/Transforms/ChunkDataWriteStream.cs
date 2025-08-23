@@ -12,6 +12,9 @@ public class ChunkDataWriteStream(Stream chunkFileStream, HashAlgorithm checksum
 	public sealed override bool CanSeek => false;
 	public sealed override bool CanWrite => true;
 	public sealed override int Read(byte[] buffer, int offset, int count) => throw new InvalidOperationException();
+	public sealed override int Read(Span<byte> buffer) => throw new InvalidOperationException();
+	public sealed override int ReadByte() => throw new InvalidOperationException();
+
 	public sealed override long Seek(long offset, SeekOrigin origin) => throw new InvalidOperationException();
 
 	public override void Write(byte[] buffer, int offset, int count) {
@@ -22,6 +25,7 @@ public class ChunkDataWriteStream(Stream chunkFileStream, HashAlgorithm checksum
 	public override void Flush() => ChunkFileStream.Flush();
 	public override void SetLength(long value) => ChunkFileStream.SetLength(value);
 	public override long Length => ChunkFileStream.Length;
+
 	public override long Position {
 		get => ChunkFileStream.Position;
 		set {
@@ -31,7 +35,8 @@ public class ChunkDataWriteStream(Stream chunkFileStream, HashAlgorithm checksum
 			ReadAndChecksum(value);
 
 			if (ChunkFileStream.Position != value)
-				throw new Exception($"Writer's position ({ChunkFileStream.Position:N0}) is not at the expected position ({value:N0})");
+				throw new Exception(
+					$"Writer's position ({ChunkFileStream.Position:N0}) is not at the expected position ({value:N0})");
 		}
 	}
 
