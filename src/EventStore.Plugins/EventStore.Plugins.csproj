@@ -8,7 +8,7 @@
 		<Nullable>enable</Nullable>
 		<InvariantGlobalization>true</InvariantGlobalization>
 	</PropertyGroup>
-	
+
 	<PropertyGroup>
 		<PackageId>EventStore.Plugins</PackageId>
 		<Authors>Event Store Ltd</Authors>
@@ -21,7 +21,12 @@
 		<Copyright>Copyright 2012-2024 Event Store Ltd</Copyright>
 		<PackageTags>eventstore plugins</PackageTags>
 	</PropertyGroup>
-	
+
+	<PropertyGroup>
+		<RepositoryUrl>https://github.com/TrogonStack/TrogonEventStore.Plugins</RepositoryUrl>
+		<RepositoryType>git</RepositoryType>
+	</PropertyGroup>
+
 	<ItemGroup>
 		<PackageReference Include="Microsoft.IdentityModel.JsonWebTokens" Version="7.6.0" />
 		<PackageReference Include="System.Diagnostics.DiagnosticSource" Version="8.0.1" />
@@ -29,11 +34,11 @@
 		<PackageReference Include="JetBrains.Annotations" Version="2023.3.0" />
 		<PackageReference Include="System.Reactive" Version="6.0.1" />
 	</ItemGroup>
-	
+
 	<ItemGroup>
 		<FrameworkReference Include="Microsoft.AspNetCore.App" />
 	</ItemGroup>
-	
+
 	<ItemGroup>
 		<None Include="..\..\LICENSE.md" Pack="true" PackagePath="\" />
 		<None Include="..\..\ouro.png" Pack="true" PackagePath="\" />

@@ -3,6 +3,11 @@ on:
   push:
     tags:
       - "v*"
+
+permissions:
+    contents: read
+    packages: write
+
 jobs:
   release:
     runs-on: ubuntu-latest
@@ -17,12 +22,14 @@ jobs:
 
       - name: Get the version
         id: get_version
-        run: echo "version=${GITHUB_REF:11}" >> $GITHUB_OUTPUT
+        run: |
+          echo "version=${GITHUB_REF:11}" >> $GITHUB_OUTPUT
+          echo "version: ${{ steps.get_version.outputs.version }}"
 
       - name: Build, Pack and Publish
         run: |
           dotnet pack /p:Version=${{ steps.get_version.outputs.version }} -o artefacts -c Release src/EventStore.Plugins/EventStore.Plugins.csproj
-          dotnet nuget push artefacts/EventStore.Plugins.${{ steps.get_version.outputs.version }}.nupkg -k ${{ secrets.nugetkey }} -s https://api.nuget.org/v3/index.json
+          dotnet nuget push artefacts/EventStore.Plugins.${{ steps.get_version.outputs.version }}.nupkg -k ${{ secrets.GITHUB_TOKEN }} -s https://nuget.pkg.github.com/TrogonStack/index.json
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
