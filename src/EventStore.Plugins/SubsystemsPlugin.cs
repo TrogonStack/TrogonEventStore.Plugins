@@ -20,16 +20,12 @@ public abstract class SubsystemsPlugin : Plugin, ISubsystem, ISubsystemsPlugin {
 
 	protected SubsystemsPlugin(
 		string? name = null, string? version = null,
-		string? licensePublicKey = null,
-		string[]? requiredEntitlements = null,
 		string? commandLineName = null,
 		string? diagnosticsName = null,
 		params KeyValuePair<string, object?>[] diagnosticsTags
 	) : this(new() {
 		Name = name,
 		Version = version,
-		LicensePublicKey = licensePublicKey,
-		RequiredEntitlements = requiredEntitlements,
 		DiagnosticsName = diagnosticsName,
 		DiagnosticsTags = diagnosticsTags,
 		CommandLineName = commandLineName
