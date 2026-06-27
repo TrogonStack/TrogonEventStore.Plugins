@@ -1,6 +1,5 @@
 using System.Diagnostics;
 using EventStore.Plugins.Diagnostics;
-using EventStore.Plugins.Licensing;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -13,8 +12,6 @@ namespace EventStore.Plugins;
 public record PluginOptions {
 	public string? Name { get; init; }
 	public string? Version { get; init; }
-	public string? LicensePublicKey { get; init; }
-	public string[]? RequiredEntitlements { get; init; }
 	public string? DiagnosticsName { get; init; }
 	public KeyValuePair<string, object?>[] DiagnosticsTags { get; init; } = [];
 }
@@ -24,8 +21,6 @@ public abstract class Plugin : IPlugableComponent, IDisposable {
 	protected Plugin(
 		string? name = null,
 		string? version = null,
-		string? licensePublicKey = null,
-		string[]? requiredEntitlements = null,
 		string? diagnosticsName = null,
 		params KeyValuePair<string, object?>[] diagnosticsTags) {
 
@@ -39,9 +34,6 @@ public abstract class Plugin : IPlugableComponent, IDisposable {
 			.Replace("Subsystem", "", OrdinalIgnoreCase);
 
 		Version = GetPluginVersion(version, pluginType);
-
-		LicensePublicKey = licensePublicKey;
-		RequiredEntitlements = requiredEntitlements;
 
 		DiagnosticsName = diagnosticsName ?? Name;
 		DiagnosticsTags = diagnosticsTags;
@@ -68,14 +60,8 @@ public abstract class Plugin : IPlugableComponent, IDisposable {
 	protected Plugin(PluginOptions options) : this(
 		options.Name,
 		options.Version,
-		options.LicensePublicKey,
-		options.RequiredEntitlements,
 		options.DiagnosticsName,
 		options.DiagnosticsTags) { }
-
-	public string? LicensePublicKey { get; }
-
-	public string[]? RequiredEntitlements { get; }
 
 	DiagnosticListener DiagnosticListener { get; }
 
@@ -132,18 +118,6 @@ public abstract class Plugin : IPlugableComponent, IDisposable {
 			);
 
 			return;
-		}
-
-		if (Enabled && LicensePublicKey is not null) {
-			// the plugin is enabled and requires a license
-			var licenseService = app.ApplicationServices.GetRequiredService<ILicenseService>();
-
-			_ = LicenseMonitor.MonitorAsync(
-				Name,
-				RequiredEntitlements ?? [],
-				licenseService,
-				logger,
-				LicensePublicKey);
 		}
 
 		// there is still a chance to disable the plugin when configuring the application
