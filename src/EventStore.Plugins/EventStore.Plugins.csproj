@@ -11,14 +11,14 @@
 
 	<PropertyGroup>
 		<PackageId>TrogonEventStore.Plugins</PackageId>
-		<Authors>TrogonStack</Authors>
+		<Authors>Straw Hat, LLC</Authors>
 		<PackageLicenseFile>LICENSE.md</PackageLicenseFile>
 		<PackageProjectUrl>https://github.com/TrogonStack/TrogonEventStore.Plugins</PackageProjectUrl>
 		<PackageIcon>ouro.png</PackageIcon>
 		<PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
 		<Description>The interfaces required to create plugins for TrogonEventStore.</Description>
 		<PackageReleaseNotes>https://github.com/TrogonStack/TrogonEventStore.Plugins/releases</PackageReleaseNotes>
-		<Copyright>Copyright TrogonStack contributors</Copyright>
+		<Copyright>Copyright Straw Hat, LLC</Copyright>
 		<PackageTags>trogoneventstore eventstore plugins</PackageTags>
 	</PropertyGroup>
 
